@@ -1,29 +1,32 @@
 package com.innoit.todoapplication.api.rest;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import com.innoit.todoapplication.api.model.ToDo;
+import com.innoit.todoapplication.api.service.ToDoService;
 
-@Controller
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/todos")
+@CrossOrigin(origins = "http://localhost:3000")
 public class CrudOperation {
-    @RequestMapping("home")
-    @ResponseBody
-    public String SayHello(){
-        return "hello welcome page";
-    }
-    @RequestMapping("html-form")
-    @ResponseBody
-    public String HtmlForm(){
-        StringBuffer sb = new StringBuffer();
-        sb.append("<html>");
-        sb.append("<head>");
-        sb.append("<title>project head</title>");
-        sb.append("</head>");
-        sb.append("<body>");
-        sb.append("project body");
-        sb.append("</body>");
-        sb.append("</html>");
+    @Autowired
+    private ToDoService toDoService;
 
-        return sb.toString();
+    @GetMapping
+    public List<ToDo> getAllToDos() {
+        return toDoService.getAllToDos();
     }
+
+    @PostMapping
+    public ToDo createToDo(@RequestBody ToDo toDo) {
+        return toDoService.saveToDo(toDo);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteToDoById(@PathVariable Long id) {
+        toDoService.deleteToDoById(id);
+    }
+
 }
