@@ -25,4 +25,14 @@ public class ToDoService {
         toDoRepository.deleteById(id);
     }
 
+    public ToDo updateToDo(Long id, ToDo toDoDetails) {
+        Optional<ToDo> optionalToDo = toDoRepository.findById(id);
+        if (optionalToDo.isPresent()) {
+            ToDo toDo = optionalToDo.get();
+            toDo.setTitle(toDoDetails.getTitle());
+            toDo.setCompleted(toDoDetails.isCompleted());
+            return toDoRepository.save(toDo);
+        }
+        return null;
+   }
 }

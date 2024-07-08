@@ -29,4 +29,8 @@ public class CrudOperation {
         toDoService.deleteToDoById(id);
     }
 
+    @PutMapping("/{id}")
+    public ToDo updateToDo(@PathVariable Long id, @RequestBody ToDo toDo) {
+        return toDoService.updateToDo(id, toDo);
+    }
 }
