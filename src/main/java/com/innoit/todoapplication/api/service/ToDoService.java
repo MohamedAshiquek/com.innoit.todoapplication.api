@@ -31,6 +31,7 @@ public class ToDoService {
             ToDo toDo = optionalToDo.get();
             toDo.setTitle(toDoDetails.getTitle());
             toDo.setCompleted(toDoDetails.isCompleted());
+            toDo.setDueDate(toDoDetails.getDueDate());
             return toDoRepository.save(toDo);
         }
         return null;
